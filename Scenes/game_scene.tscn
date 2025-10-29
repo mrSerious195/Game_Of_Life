@@ -98,3 +98,4 @@ TimeBetweenUpdates = 0.25
 [connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/Pause" to="." method="Pause"]
 [connection signal="value_changed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SpinBox" to="." method="ChangeSpeed"]
 [connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Restart" to="." method="Restart"]
+[connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Clear" to="." method="Clear"]
