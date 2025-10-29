@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://t7g0tfrka81r"]
+
+[ext_resource type="Script" uid="uid://cmhph0kk7nc8e" path="res://Scenes/LifeGameScene.cs" id="1_fiftr"]
+[ext_resource type="PackedScene" uid="uid://if44eaj4m2v6" path="res://Scenes/cell_viewer.tscn" id="1_x87qo"]
+[ext_resource type="Script" uid="uid://dek7es4co5w65" path="res://Scenes/Camera.cs" id="2_6h5vk"]
+[ext_resource type="Script" uid="uid://cav6xadbjuos7" path="res://Scenes/LifeCalculator.cs" id="3_fiftr"]
+
+[node name="LifeGameScene" type="Node" node_paths=PackedStringArray("viewer", "calculator")]
+script = ExtResource("1_fiftr")
+viewer = NodePath("CellViewer")
+calculator = NodePath("Life_Calculator")
+
+[node name="CellViewer" parent="." node_paths=PackedStringArray("_countLabel") instance=ExtResource("1_x87qo")]
+_countLabel = NodePath("../Gui/Label")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_6h5vk")
+MoveSensitivity = 1.0
+
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="Gui"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Gui/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Gui/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Reset camera" type="Button" parent="Gui/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Reset Camera"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Gui/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Start"
+
+[node name="Pause" type="Button" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Pause"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Time" type="Label" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Time Between Steps"
+
+[node name="SpinBox" type="SpinBox" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 0.01
+max_value = 120.0
+step = 0.01
+value = 2.0
+suffix = "seconds"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Gui/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Clear" type="Button" parent="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Clear"
+
+[node name="Label" type="Label" parent="Gui"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "Active Cells : 0"
+
+[node name="Life_Calculator" type="Node" parent="." node_paths=PackedStringArray("_cellViewer", "_timer")]
+script = ExtResource("3_fiftr")
+_cellViewer = NodePath("../CellViewer")
+_timer = NodePath("Timer")
+TimeBetweenUpdates = 0.25
+
+[node name="Timer" type="Timer" parent="Life_Calculator"]
+
+[connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/Reset camera" to="Camera2D" method="Reset"]
+[connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/Start" to="." method="Start"]
+[connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/Pause" to="." method="Pause"]
+[connection signal="value_changed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/SpinBox" to="." method="ChangeSpeed"]
+[connection signal="pressed" from="Gui/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Restart" to="." method="Restart"]

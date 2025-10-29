@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://if44eaj4m2v6"]
+
+[ext_resource type="Texture2D" uid="uid://eyye3bat4qup" path="res://Assets/Pixel.png" id="1_rf5fv"]
+[ext_resource type="Script" uid="uid://cyu586d3st7fw" path="res://Scenes/CellViewer.cs" id="2_3srlv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3srlv"]
+texture = ExtResource("1_rf5fv")
+texture_region_size = Vector2i(1, 1)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_eu4vk"]
+tile_size = Vector2i(1, 1)
+sources/0 = SubResource("TileSetAtlasSource_3srlv")
+
+[node name="CellViewer" type="TileMapLayer"]
+texture_filter = 1
+scale = Vector2(20, 20)
+tile_set = SubResource("TileSet_eu4vk")
+script = ExtResource("2_3srlv")
