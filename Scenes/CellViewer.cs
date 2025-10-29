@@ -9,17 +9,33 @@ public partial class CellViewer : TileMapLayer
 
 	[Export]
 	private Label _countLabel;
-	private Vector2I? lastclick=null;
+	private List<Vector2I> ChangedCells = [];
+	private bool mousebuttonClicked = false;
 	public void Activate(List<Vector2I> cells)
 	{
 		Clear();
 		foreach (var cell in cells)
 		{
-			
-			SetCell(cell, 0,Vector2I.Zero);
+
+			SetCell(cell, 0, Vector2I.Zero);
 		}
 		_countLabel.Text = $"Active Cells : {cells.Count}";
 	}
+
+    public override void _Process(double delta)
+	{
+		if (mousebuttonClicked)
+		{
+			Vector2I Hovercell = LocalToMap(GetLocalMousePosition());
+            if (!ChangedCells.Contains(Hovercell))
+			{
+				ChangedCells.Add(Hovercell);
+				EmitSignal(SignalName.TileClickedOn, Hovercell);
+				
+            }
+		}
+    }
+
 
     public override void _UnhandledInput(InputEvent @event)
     {
@@ -27,11 +43,18 @@ public partial class CellViewer : TileMapLayer
 	
 		if (@event is InputEventMouseButton mouseButtonEvent)
 		{
-			if (mouseButtonEvent.ButtonIndex == MouseButton.Left && mouseButtonEvent.Pressed)
+			if (mouseButtonEvent.ButtonIndex == MouseButton.Left)
 			{
-				Vector2I clickedCell = LocalToMap(GetLocalMousePosition());
-				
-					EmitSignal(SignalName.TileClickedOn, clickedCell);
+				if (mouseButtonEvent.Pressed)
+				{
+					mousebuttonClicked = true;
+					
+                }
+                else
+                {
+					mousebuttonClicked = false;
+					ChangedCells = [];
+                }
 			
 			}
 

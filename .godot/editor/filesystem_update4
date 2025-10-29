@@ -1,8 +1,6 @@
-res://Scenes/LifeCalculator.cs
 res://Scenes/CellViewer.cs
+res://Scenes/SceneManager.cs
+res://Scenes/LifeGameScene.cs
 res://Scenes/Camera.cs
 res://Scenes/BaseScene.cs
-res://Scenes/SceneManager.cs
-res://Scenes/game_scene.tscn
-res://Scenes/LifeGameScene.cs
-res://Scenes/cell_viewer.tscn
+res://Scenes/LifeCalculator.cs
