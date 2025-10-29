@@ -7,8 +7,8 @@ public partial class LifeCalculator : Node
 	
 	[Export] 
 	private CellViewer _cellViewer;
-	private List<Vector2I> _startingPositions = new();
-	private List<Vector2I> _activepositions = new();
+	private HashSet<Vector2I> _startingPositions = new();
+	private HashSet<Vector2I> _activepositions = new();
 
 	[Export] private Timer _timer;
 
@@ -87,7 +87,7 @@ public partial class LifeCalculator : Node
 	public void Update()
 	{
 		HashSet<Vector2I> CheckIngPositions = new(_activepositions);
-		List<Vector2I> newActivePositions = new();
+		HashSet<Vector2I> newActivePositions = new();
 		Queue<Vector2I> PositionsQueue = new(_activepositions);
 		int activeAdjecents;
 		Vector2I currentPos;

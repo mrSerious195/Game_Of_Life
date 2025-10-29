@@ -1,7 +1,6 @@
-res://Scenes/SceneManager.cs
-res://Scenes/LifeGameScene.cs
-res://Scenes/Camera.cs
 res://Scenes/BaseScene.cs
+res://Scenes/Camera.cs
 res://Scenes/CellViewer.cs
 res://Scenes/LifeCalculator.cs
-res://Scenes/game_scene.tscn
+res://Scenes/LifeGameScene.cs
+res://Scenes/SceneManager.cs

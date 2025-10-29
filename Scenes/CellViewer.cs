@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class CellViewer : TileMapLayer
 {
@@ -11,7 +12,7 @@ public partial class CellViewer : TileMapLayer
 	private Label _countLabel;
 	private List<Vector2I> ChangedCells = [];
 	private bool mousebuttonClicked = false;
-	public void Activate(List<Vector2I> cells)
+	public void Activate(IEnumerable<Vector2I> cells)
 	{
 		Clear();
 		foreach (var cell in cells)
@@ -19,7 +20,7 @@ public partial class CellViewer : TileMapLayer
 
 			SetCell(cell, 0, Vector2I.Zero);
 		}
-		_countLabel.Text = $"Active Cells : {cells.Count}";
+		_countLabel.Text = $"Active Cells : {cells.Count()}";
 	}
 
     public override void _Process(double delta)
